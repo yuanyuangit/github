@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body ng-controller="myController">
+		全局搜索：<input type="text" ng-model="search" />
+		按年龄搜索：<input type="text" ng-model="searchAge" />
+		按姓名搜索：<input type="text" ng-model="searchName" />
+		
+		
+		<table border="1" cellpadding="0" cellspacing="0" style="width: 500px;">
+			<tr>
+				<th style="cursor: pointer;" ng-click="show('name')">姓名</th>
+				<th style="cursor: pointer;" ng-click="show('age')">年龄</th>
+				<th style="cursor: pointer;" ng-click="show('sex')">性别</th>
+			</tr>
+			<tr ng-repeat="a in arr | filter:search | filter:searchName | filter:searchAge | orderBy:propertyName:reverse">
+				<td>{{a.name}}</td>
+				<td>{{a.age}}</td>
+				<td>{{a.sex}}</td>
+			</tr>
+		</table>		
+		<script type="text/javascript" src="js/angular1.4.8.js"></script>
+		<script>
+			//创建模块
+			var app=angular.module("app",[]);
+			app.controller("myController",["$scope",function($scope){
+				$scope.search="";
+				$scope.searchName="";
+				$scope.searchAge="";
+				$scope.arr=[
+					{name:"罗贤忠",age:21,sex:"男"},
+					{name:"陈慧燕",age:20,sex:"女"},
+					{name:"冯观毅",age:13,sex:"男"},
+					{name:"黄维新",age:9,sex:"男"},
+					{name:"黄志威",age:22,sex:"男"},
+					{name:"简蛟龙",age:16,sex:"女"},
+					{name:"廖文杰",age:22,sex:"男"},
+					{name:"罗星卫",age:21,sex:"男"},
+					{name:"王艳红",age:20,sex:"女"},
+					{name:"唐茂林",age:99,sex:"男"},
+					{name:"张迎",age:1,sex:"女"},
+					{name:"孙炳义",age:100,sex:"男"}
+				];
+//				$scope.propertyName = 'age';
+				  $scope.reverse = true;
+				
+				  $scope.show = function(propertyName) {
+				    $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+				    $scope.propertyName = propertyName;
+				  };
+			}]);
+		</script>
+	</body>
+</html>
